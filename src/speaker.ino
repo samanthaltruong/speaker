@@ -14,7 +14,13 @@ Talkie voice;
 JsonParser jsonParser;
 
 // initializes speaker
-const int SPEAKER = D6;
+const int SPEAKER = D5;
+
+// initializes speaker
+const int BUTTON = D7;
+
+// Declares and initializes previous button state for OLED button
+int stateButtonPrev = HIGH;
 
 int number = 0;
 
@@ -26,6 +32,9 @@ void setup()
 
   // Put initialization like pinMode and begin functions here.
   pinMode(SPEAKER, OUTPUT);
+
+  // initialize repeat button
+  pinMode(BUTTON, INPUT);
 
   Particle.subscribe("speech", speechEventHandler, ALL_DEVICES);
 }
@@ -108,6 +117,18 @@ void speakNum(int num)
   else
   {
     voice.say(sp2_NINE);
+  }
+  // if button press say the numbers again. save the numbers as an array
+}
+
+void repeat()
+{
+  // Reads from button
+  int stateButton = digitalRead(BUTTON);
+
+  // Switches states on rising edge when button is pressed
+  if (stateButton == HIGH && stateButtonPrev == LOW)
+  {
   }
 }
 
